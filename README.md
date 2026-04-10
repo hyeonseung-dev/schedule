@@ -29,15 +29,62 @@ java Spring
 IntelliJ
 
 ## 트러블슈팅
+벨로그 참고
+https://velog.io/@khs0305/일정-관리-앱-만들기-트러블슈팅
 
 ## API 명세
 
+<details>
+<summary>📌 <b>일정 생성 API</b> </summary>
+
 ### 일정 생성 API
 - Method: POST
-- URL: /api/schedules
+- URL: /schedules
 - Request Body:
 ```json
 {
   "title": "회의",
-  "date": "2026-04-10"
+  "content": "팀 프로젝트 회의",
+  "authorName": "홍길동",
+  "password": "1234"
 }
+```
+- Request 필드
+
+| 필드명        | 타입     | 필수 여부 | 설명             |
+| ---------- | ------ | ----- | -------------- |
+| title      | String | O     | 일정 제목          |
+| content    | String | O     | 일정 내용          |
+| authorName | String | O     | 작성자 이름         |
+| password   | String | O     | 일정 수정/삭제용 비밀번호 |
+
+- Response
+```json
+{
+  "id": 1,
+  "title": "회의",
+  "content": "팀 프로젝트 회의",
+  "authorName": "홍길동",
+  "createdAt": "2026-04-10T14:30:00",
+  "updatedAt": "2026-04-10T14:30:00"
+}
+```
+- Response 필드
+
+  | 필드명        | 타입            | 설명     |
+  | ---------- | ------------- | ------ |
+  | id         | Long          | 일정 ID  |
+  | title      | String        | 일정 제목  |
+  | content    | String        | 일정 내용  |
+  | authorName | String        | 작성자 이름 |
+  | createdAt  | LocalDateTime | 생성일    |
+  | updatedAt  | LocalDateTime | 수정일    |
+
+- 상태 코드
+
+| 상태 코드 | 설명                |
+| ----- | ----------------- |
+| 201   | 생성 성공             |
+| 400   | 잘못된 요청 (필수값 누락 등) |
+| 500   | 서버 오류             |
+</details>
