@@ -7,7 +7,8 @@
 4. [개발기간](#개발기간)
 5. [기술스택](#기술스택)
 6. [Trouble Shooting](#trouble-shooting)
-7. [API 명세](#API명세)
+7. [ERD](#ERD)
+8. [API 명세](#API명세)
 
 ## 👨‍🏫 프로젝트 소개
 일정 관리 앱 프로젝트
@@ -31,6 +32,14 @@ IntelliJ
 ## 트러블슈팅
 벨로그 참고
 https://velog.io/@khs0305/일정-관리-앱-만들기-트러블슈팅
+
+## 🗂️ ERD
+<details>
+<summary>🗂️ <b>ERD 열기</b> </summary>
+
+![ERD](./docs/ERD.png)
+
+</details>
 
 ## API 명세
 
@@ -88,3 +97,4 @@ https://velog.io/@khs0305/일정-관리-앱-만들기-트러블슈팅
 | 400   | 잘못된 요청 (필수값 누락 등) |
 | 500   | 서버 오류             |
 </details>
+
