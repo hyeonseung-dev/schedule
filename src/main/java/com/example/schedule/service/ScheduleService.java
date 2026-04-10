@@ -2,6 +2,7 @@ package com.example.schedule.service;
 
 import com.example.schedule.dto.CreatScheduleRequest;
 import com.example.schedule.dto.CreatScheduleResponse;
+import com.example.schedule.dto.GetScheduleResponse;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.Getter;
@@ -36,5 +37,14 @@ public class ScheduleService {
                 schedule.getAuthorName(),
                 schedule.getCreatedAt(),
                 schedule.getModifiedAt());
+    }
+
+    // 선택 조회
+    @Transactional(readOnly = true)
+    public GetScheduleResponse getOneSchedule(Long id) {
+        Schedule schedule =scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("일정이 없습니다.")
+        );
+        return new GetScheduleResponse(schedule.getId(),schedule.getTitle(),schedule.getContent(),schedule.getAuthorName(),schedule.getCreatedAt(),schedule.getModifiedAt());
     }
 }
