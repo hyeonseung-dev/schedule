@@ -35,10 +35,17 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAllSchedule(authorName));
     }
 
-    // 일정 수정(추후 예외처리 상태전달)
+    // 일정 수정
     @PatchMapping("/schedules/{id}")
     public ResponseEntity<UpdateScheduleResponse> patchSchedule(@PathVariable Long id, @RequestBody UpdateScheduleRequest request){
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateSchedule(id,request));
+    }
+
+    // 일정 삭제
+    @DeleteMapping("/schedules/{id}")
+    public ResponseEntity<Void> deletSchedule(@PathVariable Long id){
+        scheduleService.deleteSchedule(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
