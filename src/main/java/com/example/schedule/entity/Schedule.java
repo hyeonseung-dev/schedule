@@ -16,9 +16,12 @@ public class Schedule extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 50, nullable = false)
     private String title;
     private String content;
+    @Column(length = 8, nullable = false)
     private String authorName;
+    @Column(length = 8, nullable = false)
     private String password;
 
     public Schedule(String title, String content, String authorName, String password){
