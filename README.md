@@ -192,3 +192,53 @@ https://velog.io/@khs0305/일정-관리-앱-만들기-트러블슈팅
 | 400   | 잘못된 요청 (필수값 누락 등) |
 | 500   | 서버 오류             |
 </details>
+<details>
+<summary>📌 <b>일정 수정 API</b> </summary>
+
+### 일정 생성 API
+- Method: PATCH
+- URL: /schedules/{id}
+- Request Body:
+```json
+{
+  "title": "회의",
+  "authorName": "홍길동",
+  "password": "1234"
+}
+```
+- Request 필드
+
+| 필드명        | 타입     | 필수 여부 | 설명             |
+| ---------- | ------ | ----- |----------------|
+| title      | String | O     | 수정할 일정 제목      |
+| authorName | String | O     | 수정할 작성자 이름     |
+| password   | String | O     | 일정 수정/삭제용 비밀번호 |
+
+- Response
+```json
+{
+  "id": 1,
+  "title": "회의",
+  "authorName": "홍길동",
+  "createdAt": "2026-04-10T14:30:00",
+  "updatedAt": "2026-04-10T14:30:00"
+}
+```
+- Response 필드
+
+  | 필드명        | 타입            | 설명         |
+    | ---------- | ------------- |------------|
+  | id         | Long          | 일정 ID      |
+  | title      | String        | 수정된 일정 제목  |
+  | authorName | String        | 수정된 작성자 이름 |
+  | createdAt  | LocalDateTime | 생성일        |
+  | updatedAt  | LocalDateTime | 수정일        |
+
+- 상태 코드
+
+| 상태 코드 | 설명                |
+|-------| ----------------- |
+| 200   | 성공             |
+| 400   | 잘못된 요청 (필수값 누락 등) |
+| 500   | 서버 오류             |
+</details>
