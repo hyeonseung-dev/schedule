@@ -195,7 +195,7 @@ https://velog.io/@khs0305/일정-관리-앱-만들기-트러블슈팅
 <details>
 <summary>📌 <b>일정 수정 API</b> </summary>
 
-### 일정 생성 API
+### 일정 수정 API
 - Method: PATCH
 - URL: /schedules/{id}
 - Request Body:
@@ -239,6 +239,29 @@ https://velog.io/@khs0305/일정-관리-앱-만들기-트러블슈팅
 | 상태 코드 | 설명                |
 |-------| ----------------- |
 | 200   | 성공             |
+| 400   | 잘못된 요청 (필수값 누락 등) |
+| 500   | 서버 오류             |
+</details>
+
+<details>
+<summary>📌 <b>일정 삭제 API</b> </summary>
+
+### 일정 삭제 API
+- Method: DELETE
+- URL: /schedules/{id}
+- Request Body:
+```json
+{
+  "password": "1234"
+}
+```
+- Request 필드 : 없음
+
+- 상태 코드
+
+| 상태 코드 | 설명                |
+|-------| ----------------- |
+| 204   | 성공             |
 | 400   | 잘못된 요청 (필수값 누락 등) |
 | 500   | 서버 오류             |
 </details>
