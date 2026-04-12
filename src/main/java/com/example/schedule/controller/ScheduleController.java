@@ -35,7 +35,7 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAllSchedule(authorName));
     }
 
-    // 일정 수정
+    // 일정 수정(추후 예외처리 상태전달)
     @PatchMapping("/schedules/{id}")
     public ResponseEntity<UpdateScheduleResponse> patchSchedule(@PathVariable Long id, @RequestBody UpdateScheduleRequest request){
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateSchedule(id,request));
