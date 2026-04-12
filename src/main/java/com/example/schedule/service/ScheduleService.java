@@ -119,4 +119,19 @@ public class ScheduleService {
                 schedule.getModifiedAt()
         );
     }
+
+    @Transactional
+    public void deleteSchedule(Long id) {
+        // 대상 id가 존재하지 않을 때 예외처리
+        boolean exist = scheduleRepository.existsById(id);
+        if(!exist){
+            throw new IllegalStateException("대상 id가 존재하지 않습니다.");
+        }
+        else
+        // 대상 id 존재 시 삭제
+        {
+            scheduleRepository.deleteById(id);
+        }
+
+    }
 }
