@@ -1,8 +1,6 @@
 package com.example.schedule.service;
 
-import com.example.schedule.dto.CreatScheduleRequest;
-import com.example.schedule.dto.CreatScheduleResponse;
-import com.example.schedule.dto.GetScheduleResponse;
+import com.example.schedule.dto.*;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.Getter;
@@ -93,5 +91,9 @@ public class ScheduleService {
             dtos.sort(Comparator.comparing(GetScheduleResponse::getModifiedAt).reversed());
             return dtos;
         }
+    }
+
+    @Transactional
+    public PatchScheduleResponse patchSchedule(Long id, PatchScheduleRequest request) {
     }
 }
