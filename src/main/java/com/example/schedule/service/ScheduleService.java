@@ -94,7 +94,7 @@ public class ScheduleService {
     }
 
     @Transactional
-    public PatchScheduleResponse patchSchedule(Long id, PatchScheduleRequest request) {
+    public UpdateScheduleResponse updateSchedule(Long id, UpdateScheduleRequest request) {
 
         // 요청한 id가 존재여부 확인, 없으면 예외메세지 전달
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
@@ -111,7 +111,7 @@ public class ScheduleService {
             throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
 
-        return new PatchScheduleResponse(
+        return new UpdateScheduleResponse(
                 schedule.getId(),
                 schedule.getTitle(),
                 schedule.getAuthorName(),

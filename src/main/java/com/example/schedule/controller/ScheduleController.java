@@ -37,8 +37,8 @@ public class ScheduleController {
 
     // 일정 수정
     @PatchMapping("/schedules/{id}")
-    public ResponseEntity<PatchScheduleResponse> patchSchedule(@PathVariable Long id, @RequestBody PatchScheduleRequest request){
-        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.patchSchedule(id,request));
+    public ResponseEntity<UpdateScheduleResponse> patchSchedule(@PathVariable Long id, @RequestBody UpdateScheduleRequest request){
+        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateSchedule(id,request));
     }
 
 }
