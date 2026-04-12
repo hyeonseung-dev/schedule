@@ -21,4 +21,9 @@ public abstract class BaseEntity {
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime modifiedAt;
+
+    // protected로 상속받는 클래스만 접근 가능 설정, 수정일 업데이트 시점으로 변경
+    protected void updateModifiedAt(){
+        this.modifiedAt = LocalDateTime.now();
+    }
 }
