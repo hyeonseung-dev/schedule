@@ -1,8 +1,6 @@
 package com.example.schedule.service;
 
-import com.example.schedule.dto.CreatScheduleRequest;
-import com.example.schedule.dto.CreatScheduleResponse;
-import com.example.schedule.dto.GetScheduleResponse;
+import com.example.schedule.dto.*;
 import com.example.schedule.entity.Schedule;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.Getter;
@@ -93,5 +91,32 @@ public class ScheduleService {
             dtos.sort(Comparator.comparing(GetScheduleResponse::getModifiedAt).reversed());
             return dtos;
         }
+    }
+
+    @Transactional
+    public UpdateScheduleResponse updateSchedule(Long id, UpdateScheduleRequest request) {
+
+        // 요청한 id가 존재여부 확인, 없으면 예외메세지 전달
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("일정이 없습니다.")
+        );
+
+        // 요청한 비밀번호와 기존 생성된 일정 비밀번호와 같으면 수정
+        if(request.getPassword().equals(schedule.getPassword())){
+            schedule.update(request.getTitle(), request.getAuthorName());
+        }
+        else
+        // 요청한 비밀번호와 기존 생성된 일정 비밀번호와 다르면 예외처리
+        {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
+        }
+
+        return new UpdateScheduleResponse(
+                schedule.getId(),
+                schedule.getTitle(),
+                schedule.getAuthorName(),
+                schedule.getCreatedAt(),
+                schedule.getModifiedAt()
+        );
     }
 }

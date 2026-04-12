@@ -31,10 +31,13 @@ public class Schedule extends BaseEntity{
         this.password = password;
     }
 
-    // 일정 수정 시 일정 제목과 작성자 명만 수정할 수 있게 만듦
+    // 일정 수정 시 일정 제목과 작성자 명만 수정할 수 있게 만듦, 수정일 업데이트 시점으로 변경
     public void update(String title, String authorName){
         this.title = title;
         this.authorName = authorName;
+
+        // BaseEntity에 있는 수정일 메서드 사용
+        updateModifiedAt();
     }
 
 }
