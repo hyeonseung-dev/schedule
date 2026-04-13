@@ -9,6 +9,7 @@
 6. [Trouble Shooting](#trouble-shooting)
 7. [ERD](#ERD)
 8. [API 명세](#API명세)
+9. 과제 질문 답변
 
 ## 👨‍🏫 프로젝트 소개
 일정 관리 앱 프로젝트
@@ -332,3 +333,21 @@ https://velog.io/@khs0305/일정-관리-앱-만들기-트러블슈팅
 | 400   | 잘못된 요청 (필수값 누락 등) |
 | 500   | 서버 오류             |
 </details>
+
+## 과제 질문 답변
+
+1. 3 Layer Architecture(Controller, Service, Repository)를 적절히 적용했는지 확인해 보고, 왜 이러한 구조가 필요한지 작성해 주세요.
+	3 Layer Architecture 구조가 필요한 이유는 계층을 분리하여 책임을 분리하기 위함이다.
+	시스템이 복잡 할 수록 한 계층에 모든 기능을 구현하면 유지보수나, 책임분리의 제한사항이 많아진다.
+	때문에 시스템 개발을 할때 유지보수, 책임분리, 확장성을 높이기 위해 사용된다.
+	Controller : 클라이언트 요청을 받고, 적절한 Controller에 배정 Service에 전달한다. 이후 결과 값을 반환해준다.
+	Service : 비지니스 로직을 수행하며, Repository와 데이터를 교환한다.
+	Repository : DB와 데이터를 교환하며, Service에 값을 전달한다.
+
+
+2. @RequestParam, @PathVariable, @RequestBody가 각각 어떤 어노테이션인지, 어떤 특징을 갖고 있는지 작성해 주세요.
+	위의 어노테이션은 클라이언트에서 요청하는 URL과 바디를 가져오는 어노테이션이다.
+	@RequestParam : URL의 쿼리 파라미터를 받는 것이다.
+	사용예시) GET /schedules?authorName=현승
+	@PathVariable : 기본키 id와 같은 특정{} 경로 값을 받아온다.
+	@RequestBody : 요청Body문을 받아온다. DB 값을 생성, 수정, 검증 등에 사용된다.
