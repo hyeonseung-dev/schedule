@@ -25,11 +25,11 @@ public class ScheduleController {
 
     // 선택 일정 조회
     @GetMapping("/schedules/{id}")
-    public ResponseEntity<GetScheduleResponse> getSchedule(@PathVariable Long id){
+    public ResponseEntity<GetScheduleCommentResponse> getSchedule(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getOneSchedule(id));
     }
 
-    // 전체 일정 조회(쿼리파라미터 사용하여 작성자명 조건 부여 여부 확인)
+    // 전체 일정 조회
     @GetMapping("/schedules")
     public ResponseEntity<List<GetScheduleResponse>> getAllSchedule(@RequestParam(required = false) String authorName){
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAllSchedule(authorName));

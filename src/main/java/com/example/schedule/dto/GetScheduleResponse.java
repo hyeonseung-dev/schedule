@@ -3,6 +3,7 @@ package com.example.schedule.dto;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 public class GetScheduleResponse {
@@ -12,6 +13,7 @@ public class GetScheduleResponse {
     private final String authorName;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
+
 
     public GetScheduleResponse(Long id, String title, String content, String authorName, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;

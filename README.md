@@ -170,19 +170,27 @@ https://velog.io/@khs0305/일정-관리-앱-만들기-트러블슈팅
   "content": "팀 프로젝트 회의",
   "authorName": "홍길동",
   "createdAt": "2026-04-10T14:30:00",
-  "updatedAt": "2026-04-10T14:30:00"
+  "updatedAt": "2026-04-10T14:30:00",
+  "commencontent": "좋아요",
+  "commentauthorName": "김철수",
+  "commentcreatedAt": "2026-04-10T14:30:00",
+  "commentupdatedAt": "2026-04-10T14:30:00"
 }
 ```
 - Response 필드
 
-  | 필드명        | 타입            | 설명     |
-      | ---------- | ------------- | ------ |
-  | id         | Long          | 일정 ID  |
-  | title      | String        | 일정 제목  |
-  | content    | String        | 일정 내용  |
-  | authorName | String        | 작성자 이름 |
-  | createdAt  | LocalDateTime | 생성일    |
-  | updatedAt  | LocalDateTime | 수정일    |
+  | 필드명            | 타입            | 설명        |
+      |----------------| ------------- |-----------|
+  | id             | Long          | 일정 ID     |
+  | title          | String        | 일정 제목     |
+  | content        | String        | 일정 내용     |
+  | authorName     | String        | 작성자 이름    |
+  | createdAt      | LocalDateTime | 생성일       |
+  | updatedAt      | LocalDateTime | 수정일       |
+  | commentcontent | String        | 일정 댓글 내용  |
+  | commentauthorName     | String        | 댓글 작성자 이름 |
+  | commentcreatedAt      | LocalDateTime | 댓글 생성일    |
+  | commentupdatedAt      | LocalDateTime | 댓글 수정일    |
 
 - 상태 코드
 

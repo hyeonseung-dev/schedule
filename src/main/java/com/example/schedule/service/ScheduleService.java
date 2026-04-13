@@ -46,12 +46,37 @@ public class ScheduleService {
 
     // 선택 조회
     @Transactional(readOnly = true)
-    public GetScheduleResponse getOneSchedule(Long id) {
+    public GetScheduleCommentResponse getOneSchedule(Long id) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalStateException("일정이 없습니다.")
         );
-        return new GetScheduleResponse(schedule.getId(),schedule.getTitle(),schedule.getContent(),schedule.getAuthorName(),schedule.getCreatedAt(),schedule.getModifiedAt());
+
+        List<GetCommentResponse> dtos = new ArrayList<>();
+
+        for(Comment comment : commentRepository.findAll()){
+            // 선택 일정에 맞는 댓글을 가져오라
+            if(comment.getScheduleId() == id) {
+                GetCommentResponse dto = new GetCommentResponse(
+                        comment.getContent(),
+                        comment.getAuthorName(),
+                        comment.getCreatedAt(),
+                        comment.getModifiedAt());
+                dtos.add(dto);
+            }
+        }
+
+        // 댓글 리스트 가져오기
+        return new GetScheduleCommentResponse(
+                schedule.getId(),
+                schedule.getTitle(),
+                schedule.getContent(),
+                schedule.getAuthorName(),
+                schedule.getCreatedAt(),
+                schedule.getModifiedAt(),
+                dtos);
     }
+
+    // 단건 일정 선택에 따른 일정 댓글 리스트 가져오기
 
     // 전체 조회
     @Transactional(readOnly = true)
