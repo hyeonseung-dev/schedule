@@ -32,7 +32,7 @@ public class ScheduleController {
     @GetMapping("/schedules/{id}")
     public ResponseEntity<?> getSchedule(@PathVariable Long id){
         try {
-            scheduleService.deleteSchedule(id);
+            scheduleService.getOneSchedule(id);
             return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getOneSchedule(id));
         }catch (IllegalStateException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -58,9 +58,9 @@ public class ScheduleController {
 
     // 일정 삭제
     @DeleteMapping("/schedules/{id}")
-    public ResponseEntity<?> deleteSchedule(@PathVariable Long id){
+    public ResponseEntity<?> deleteSchedule(@PathVariable Long id,@RequestBody DeleteScheduleRequest request){
         try {
-            scheduleService.deleteSchedule(id);
+            scheduleService.deleteSchedule(id,request);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }catch (IllegalStateException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());

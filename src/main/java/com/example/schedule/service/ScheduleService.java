@@ -150,13 +150,19 @@ public class ScheduleService {
 
     // 일정 삭제
     @Transactional
-    public void deleteSchedule(Long id) {
+    public void deleteSchedule(Long id, DeleteScheduleRequest request) {
         // 대상 id가 존재하지 않을 때 예외처리
-        boolean exist = scheduleRepository.existsById(id);
-        if(!exist){
-            throw new IllegalStateException("대상 id가 존재하지 않습니다.");
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
+                () -> new IllegalStateException("일정이 없습니다.")
+        );
+
+        // 비밀번호 검증
+        if(!schedule.getPassword().equals(request.getPassword()))
+        {
+            throw new IllegalStateException("비밀번호가 일치하지 않습니다.");
         }
-        // 대상 id 존재 시 삭제
+
+        // 비밀번호 일치 시 삭제
             scheduleRepository.deleteById(id);
     }
 
