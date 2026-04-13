@@ -30,8 +30,13 @@ public class ScheduleController {
 
     // 선택 일정 조회
     @GetMapping("/schedules/{id}")
-    public ResponseEntity<GetScheduleCommentResponse> getSchedule(@PathVariable Long id){
-        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getOneSchedule(id));
+    public ResponseEntity<?> getSchedule(@PathVariable Long id){
+        try {
+            scheduleService.deleteSchedule(id);
+            return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getOneSchedule(id));
+        }catch (IllegalStateException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 
     // 전체 일정 조회
@@ -42,15 +47,24 @@ public class ScheduleController {
 
     // 일정 수정
     @PatchMapping("/schedules/{id}")
-    public ResponseEntity<UpdateScheduleResponse> patchSchedule(@PathVariable Long id, @RequestBody UpdateScheduleRequest request){
-        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateSchedule(id,request));
+    public ResponseEntity<?> patchSchedule(@PathVariable Long id, @RequestBody UpdateScheduleRequest request){
+        try {
+            scheduleService.updateSchedule(id,request);
+            return ResponseEntity.status(HttpStatus.OK).body(scheduleService.updateSchedule(id,request));
+        }catch (IllegalStateException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     // 일정 삭제
     @DeleteMapping("/schedules/{id}")
-    public ResponseEntity<Void> deletSchedule(@PathVariable Long id){
-        scheduleService.deleteSchedule(id);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    public ResponseEntity<?> deleteSchedule(@PathVariable Long id){
+        try {
+            scheduleService.deleteSchedule(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }catch (IllegalStateException e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 
     // 댓글 생성

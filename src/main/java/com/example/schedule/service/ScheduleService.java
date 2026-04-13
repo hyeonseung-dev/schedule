@@ -23,7 +23,7 @@ public class ScheduleService {
     private final CommentRepository commentRepository;
 
 
-    // 저장
+    // 일정 생성
     @Transactional
     public CreatScheduleResponse save(CreatScheduleRequest request) {
         Schedule schedule = new Schedule(
@@ -148,6 +148,7 @@ public class ScheduleService {
         );
     }
 
+    // 일정 삭제
     @Transactional
     public void deleteSchedule(Long id) {
         // 대상 id가 존재하지 않을 때 예외처리
@@ -155,12 +156,8 @@ public class ScheduleService {
         if(!exist){
             throw new IllegalStateException("대상 id가 존재하지 않습니다.");
         }
-        else
         // 대상 id 존재 시 삭제
-        {
             scheduleRepository.deleteById(id);
-        }
-
     }
 
     // 댓글 생성
