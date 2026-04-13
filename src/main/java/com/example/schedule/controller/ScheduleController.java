@@ -48,4 +48,9 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    // 댓글 생성
+    @PostMapping("/comments")
+    public ResponseEntity<CreatCommentResponse> creat(@RequestBody CreatCommentRequest request){
+        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.commentSave(request));
+    }
 }

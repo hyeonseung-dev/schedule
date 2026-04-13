@@ -1,7 +1,9 @@
 package com.example.schedule.service;
 
 import com.example.schedule.dto.*;
+import com.example.schedule.entity.Comment;
 import com.example.schedule.entity.Schedule;
+import com.example.schedule.repository.CommentRepository;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final CommentRepository commentRepository;
 
 
     // 저장
@@ -132,6 +135,40 @@ public class ScheduleService {
         {
             scheduleRepository.deleteById(id);
         }
+
+    }
+
+    // 댓글 생성
+    @Transactional
+    public CreatCommentResponse commentSave(CreatCommentRequest request) {
+        // 요청한 id가 존재여부 확인, 없으면 예외메세지 전달
+        Schedule schedule = scheduleRepository.findById(request.getScheduleid()).orElseThrow(
+                () -> new IllegalStateException("일정이 없습니다.")
+        );
+
+        //? 스프링이 이름만보고 자동구현해줘?
+        Long count = commentRepository.countByScheduleId(request.getScheduleid());
+
+        // 존재하고 요청한 일정의 댓글 수가 10개 이상일 때
+        if(count > 9){
+            throw new IllegalStateException("댓글 수가 10개가 넘어 작성이 제한됩니다.");
+        }
+        // 댓글 수가 10개 미만일 때 생성
+        Comment comment = new Comment(
+                request.getScheduleid(),
+                request.getContent(),
+                request.getAuthorName(),
+                request.getPassword());
+
+        commentRepository.save(comment);
+
+        return new CreatCommentResponse(
+                comment.getCommentId(),
+                comment.getScheduleId(),
+                comment.getContent(),
+                comment.getAuthorName(),
+                comment.getCreatedAt(),
+                comment.getModifiedAt());
 
     }
 }
