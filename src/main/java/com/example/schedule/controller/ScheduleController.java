@@ -19,8 +19,13 @@ public class ScheduleController {
 
     // 일정 생성
     @PostMapping("/schedules")
-    public ResponseEntity<CreatScheduleResponse> creat(@RequestBody CreatScheduleRequest request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.save(request));
+    public ResponseEntity<?> creat(@RequestBody CreatScheduleRequest request) {
+        try {
+            request.validate();
+            return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.save(request));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     // 선택 일정 조회
@@ -50,7 +55,12 @@ public class ScheduleController {
 
     // 댓글 생성
     @PostMapping("/comments")
-    public ResponseEntity<CreatCommentResponse> creat(@RequestBody CreatCommentRequest request){
-        return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.commentSave(request));
+    public ResponseEntity<?> creat(@RequestBody CreatCommentRequest request){
+        try {
+            request.validate();
+            return ResponseEntity.status(HttpStatus.CREATED).body(scheduleService.commentSave(request));
+        }catch (IllegalArgumentException e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
