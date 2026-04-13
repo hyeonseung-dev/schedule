@@ -21,12 +21,17 @@ public class Comment extends BaseEntity{
     private String authorName;
     @Column(length = 8, nullable = false)
     private String password;
+    private int count = 0;
 
     public Comment(Long scheduleid,String content, String authorName, String password){
         this.scheduleid = scheduleid;
         this.content = content;
         this.authorName = authorName;
         this.password = password;
+    }
+
+    protected void commentCount(){
+        count++;
     }
 
 }

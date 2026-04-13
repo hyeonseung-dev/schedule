@@ -23,6 +23,8 @@ public class Schedule extends BaseEntity{
     private String authorName;
     @Column(length = 8, nullable = false)
     private String password;
+    // 댓글 수 관리
+    private int commentCount = 0;
 
     public Schedule(String title, String content, String authorName, String password){
         this.title = title;
@@ -40,4 +42,8 @@ public class Schedule extends BaseEntity{
         updateModifiedAt();
     }
 
+    // 댓글 수 증가시키는 기능
+    public void commentCountIncrease(){
+        commentCount++;
+    }
 }

@@ -141,20 +141,34 @@ public class ScheduleService {
     // 댓글 생성
     @Transactional
     public CreatCommentResponse commentSave(CreatCommentRequest request) {
-        Comment comment = new Comment(
-                request.getScheduleid(),
-                request.getContent(),
-                request.getAuthorName(),
-                request.getAuthorName());
+        // 요청한 id가 존재여부 확인, 없으면 예외메세지 전달
+        Schedule schedule = scheduleRepository.findById(request.getScheduleid()).orElseThrow(
+                () -> new IllegalStateException("일정이 없습니다.")
+        );
 
-        commentRepository.save(comment);
+        // 존재하고 요청한 일정의 댓글 수가 10개 이상일 때
+        if(schedule.getCommentCount() > 10){
+            throw new IllegalStateException("댓글 수가 10개가 넘어 작성이 제한됩니다.");
+        }
+        else
+        // 댓글 수가 10개 미만일 때 생성
+        {
+            Comment comment = new Comment(
+                    request.getScheduleid(),
+                    request.getContent(),
+                    request.getAuthorName(),
+                    request.getPassword());
 
-        return new CreatCommentResponse(
-                comment.getCommentid(),
-                comment.getScheduleid(),
-                comment.getContent(),
-                comment.getAuthorName(),
-                comment.getCreatedAt(),
-                comment.getModifiedAt());
+            commentRepository.save(comment);
+            schedule.commentCountIncrease();
+
+            return new CreatCommentResponse(
+                    comment.getCommentid(),
+                    comment.getScheduleid(),
+                    comment.getContent(),
+                    comment.getAuthorName(),
+                    comment.getCreatedAt(),
+                    comment.getModifiedAt());
+        }
     }
 }
