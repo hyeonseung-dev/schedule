@@ -29,5 +29,13 @@ public class CreatScheduleRequest {
             throw new IllegalArgumentException("비밀번호는 필수로 입력해야합니다.");
         }
 
+        if(authorName.length() > 8){
+            throw new IllegalArgumentException("작성자명은 8자를 초과할수 없습니다.");
+        }
+
+        if(password.length() > 8){
+            throw new IllegalArgumentException("비밀번호는 8자를 초과할수 없습니다.");
+        }
+
     }
 }
