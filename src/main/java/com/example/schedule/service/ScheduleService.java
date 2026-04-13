@@ -146,29 +146,29 @@ public class ScheduleService {
                 () -> new IllegalStateException("일정이 없습니다.")
         );
 
+        //? 스프링이 이름만보고 자동구현해줘?
+        Long count = commentRepository.countByScheduleId(request.getScheduleid());
+
         // 존재하고 요청한 일정의 댓글 수가 10개 이상일 때
-        if(schedule.getCommentCount() > 10){
+        if(count > 9){
             throw new IllegalStateException("댓글 수가 10개가 넘어 작성이 제한됩니다.");
         }
-        else
         // 댓글 수가 10개 미만일 때 생성
-        {
-            Comment comment = new Comment(
-                    request.getScheduleid(),
-                    request.getContent(),
-                    request.getAuthorName(),
-                    request.getPassword());
+        Comment comment = new Comment(
+                request.getScheduleid(),
+                request.getContent(),
+                request.getAuthorName(),
+                request.getPassword());
 
-            commentRepository.save(comment);
-            schedule.commentCountIncrease();
+        commentRepository.save(comment);
 
-            return new CreatCommentResponse(
-                    comment.getCommentid(),
-                    comment.getScheduleid(),
-                    comment.getContent(),
-                    comment.getAuthorName(),
-                    comment.getCreatedAt(),
-                    comment.getModifiedAt());
-        }
+        return new CreatCommentResponse(
+                comment.getCommentId(),
+                comment.getScheduleId(),
+                comment.getContent(),
+                comment.getAuthorName(),
+                comment.getCreatedAt(),
+                comment.getModifiedAt());
+
     }
 }
