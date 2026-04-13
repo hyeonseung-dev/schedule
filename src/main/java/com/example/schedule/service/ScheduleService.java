@@ -1,7 +1,9 @@
 package com.example.schedule.service;
 
 import com.example.schedule.dto.*;
+import com.example.schedule.entity.Comment;
 import com.example.schedule.entity.Schedule;
+import com.example.schedule.repository.CommentRepository;
 import com.example.schedule.repository.ScheduleRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,7 @@ import java.util.List;
 
 public class ScheduleService {
     private final ScheduleRepository scheduleRepository;
+    private final CommentRepository commentRepository;
 
 
     // 저장
@@ -133,5 +136,25 @@ public class ScheduleService {
             scheduleRepository.deleteById(id);
         }
 
+    }
+
+    // 댓글 생성
+    @Transactional
+    public CreatCommentResponse commentSave(CreatCommentRequest request) {
+        Comment comment = new Comment(
+                request.getScheduleid(),
+                request.getContent(),
+                request.getAuthorName(),
+                request.getAuthorName());
+
+        commentRepository.save(comment);
+
+        return new CreatCommentResponse(
+                comment.getCommentid(),
+                comment.getScheduleid(),
+                comment.getContent(),
+                comment.getAuthorName(),
+                comment.getCreatedAt(),
+                comment.getModifiedAt());
     }
 }

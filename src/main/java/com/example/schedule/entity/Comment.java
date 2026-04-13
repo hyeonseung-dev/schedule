@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 public class Comment extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long commentid;
+    private Long scheduleid;
     @Column(length = 50, nullable = false)
     private String content;
     @Column(length = 8, nullable = false)
@@ -21,7 +22,8 @@ public class Comment extends BaseEntity{
     @Column(length = 8, nullable = false)
     private String password;
 
-    public Comment(String content, String authorName, String password){
+    public Comment(Long scheduleid,String content, String authorName, String password){
+        this.scheduleid = scheduleid;
         this.content = content;
         this.authorName = authorName;
         this.password = password;
