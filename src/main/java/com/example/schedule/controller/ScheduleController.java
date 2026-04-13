@@ -29,11 +29,11 @@ public class ScheduleController {
         return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getOneSchedule(id));
     }
 
-    // 전체 일정 조회(쿼리파라미터 사용하여 작성자명 조건 부여 여부 확인)
-    @GetMapping("/schedules")
-    public ResponseEntity<List<GetScheduleResponse>> getAllSchedule(@RequestParam(required = false) String authorName){
-        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAllSchedule(authorName));
-    }
+//    // 전체 일정 조회
+//    @GetMapping("/schedules")
+//    public ResponseEntity<List<GetScheduleResponse>> getAllSchedule(@RequestParam(required = false) String authorName){
+//        return ResponseEntity.status(HttpStatus.OK).body(scheduleService.getAllSchedule(authorName));
+//    }
 
     // 일정 수정
     @PatchMapping("/schedules/{id}")
