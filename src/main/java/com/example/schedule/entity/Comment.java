@@ -15,7 +15,7 @@ public class Comment extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
     private Long scheduleId;
-    @Column(length = 50, nullable = false)
+    @Column(length = 100, nullable = false)
     private String content;
     @Column(length = 8, nullable = false)
     private String authorName;
